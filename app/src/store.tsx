@@ -27,10 +27,6 @@ export interface Developer {
   enableAltPersonFlow: boolean
 }
 
-export interface DismissPersonCredentialOffer {
-  personCredentialOfferDismissed: boolean
-}
-
 export interface Unified {
   cardType: UnifiedCardType
   serial: string
@@ -39,7 +35,7 @@ export interface Unified {
 
 export interface BCState extends BifoldState {
   developer: Developer
-  dismissPersonCredentialOffer: DismissPersonCredentialOffer
+
   unified: Unified
 }
 
@@ -47,10 +43,6 @@ enum DeveloperDispatchAction {
   UPDATE_ENVIRONMENT = 'developer/updateEnvironment',
   TOGGLE_PROXY = 'developer/toggleProxy',
   TOGGLE_ALT_PERSON_FLOW = 'developer/toggleAltPersonFlow',
-}
-
-enum DismissPersonCredentialOfferDispatchAction {
-  PERSON_CREDENTIAL_OFFER_DISMISSED = 'dismissPersonCredentialOffer/personCredentialOfferDismissed',
 }
 
 enum RemoteDebuggingDispatchAction {
@@ -63,15 +55,10 @@ enum UnifiedDispatchAction {
   UPDATE_BIRTHDATE = 'unified/updateBirthdate',
 }
 
-export type BCDispatchAction =
-  | DeveloperDispatchAction
-  | DismissPersonCredentialOfferDispatchAction
-  | RemoteDebuggingDispatchAction
-  | UnifiedDispatchAction
+export type BCDispatchAction = DeveloperDispatchAction | RemoteDebuggingDispatchAction | UnifiedDispatchAction
 
 export const BCDispatchAction = {
   ...DeveloperDispatchAction,
-  ...DismissPersonCredentialOfferDispatchAction,
   ...RemoteDebuggingDispatchAction,
   ...UnifiedDispatchAction,
 }
@@ -109,10 +96,6 @@ const developerState: Developer = {
   enableAltPersonFlow: false,
 }
 
-const dismissPersonCredentialOfferState: DismissPersonCredentialOffer = {
-  personCredentialOfferDismissed: false,
-}
-
 const unifiedState: Unified = {
   cardType: UnifiedCardType.None,
   serial: '',
@@ -120,7 +103,6 @@ const unifiedState: Unified = {
 }
 
 export enum BCLocalStorageKeys {
-  PersonCredentialOfferDismissed = 'PersonCredentialOfferDismissed',
   Environment = 'Environment',
   GenesisTransactions = 'GenesisTransactions',
   RemoteDebugging = 'RemoteDebugging',
@@ -135,7 +117,6 @@ export const initialState: BCState = {
   ...defaultState,
   preferences: { ...defaultState.preferences, useDataRetention: false, disableDataRetentionOption: true },
   developer: developerState,
-  dismissPersonCredentialOffer: dismissPersonCredentialOfferState,
   unified: unifiedState,
 }
 
@@ -182,19 +163,7 @@ const bcReducer = (state: BCState, action: ReducerAction<BCDispatchAction>): BCS
 
       return { ...state, developer }
     }
-    case DismissPersonCredentialOfferDispatchAction.PERSON_CREDENTIAL_OFFER_DISMISSED: {
-      const { personCredentialOfferDismissed } = (action?.payload || []).pop()
-      const dismissPersonCredentialOffer = { ...state.dismissPersonCredentialOffer, personCredentialOfferDismissed }
-      const newState = { ...state, dismissPersonCredentialOffer }
 
-      // save to storage so notification doesn't reapper on app restart
-      PersistentStorage.storeValueForKey<DismissPersonCredentialOffer>(
-        BCLocalStorageKeys.PersonCredentialOfferDismissed,
-        newState.dismissPersonCredentialOffer
-      )
-
-      return newState
-    }
     case UnifiedDispatchAction.UPDATE_CARD_TYPE: {
       const cardType = (action?.payload || []).pop() ?? UnifiedCardType.None
       const unified = { ...state.unified, cardType }

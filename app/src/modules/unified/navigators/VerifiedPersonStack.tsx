@@ -1,10 +1,4 @@
-import {
-  ButtonLocation,
-  IconButton,
-  testIdWithKey,
-  useDefaultStackOptions,
-  useTheme,
-} from '@hyperledger/aries-bifold-core'
+import { useDefaultStackOptions, useTheme } from '@hyperledger/aries-bifold-core'
 import { createStackNavigator } from '@react-navigation/stack'
 import { useTranslation } from 'react-i18next'
 
@@ -36,15 +30,6 @@ const VerifiedPersonStack: React.FC = () => {
         component={VerificationSteps}
         options={{
           title: t('Screens.VerificationSteps'),
-          headerRight: () => (
-            <IconButton
-              buttonLocation={ButtonLocation.Right}
-              icon={'help-circle'}
-              accessibilityLabel={t('PersonCredential.HelpLink')}
-              testID={testIdWithKey('Help')}
-              onPress={() => null}
-            />
-          ),
         }}
       />
       <Stack.Screen
@@ -52,15 +37,6 @@ const VerifiedPersonStack: React.FC = () => {
         component={EvidenceCollectionStep}
         options={{
           title: t('Screens.EvidenceCollectionStep.Stage1'),
-          headerRight: () => (
-            <IconButton
-              buttonLocation={ButtonLocation.Right}
-              icon={'help-circle'}
-              accessibilityLabel={t('PersonCredential.HelpLink')}
-              testID={testIdWithKey('Help')}
-              onPress={() => null}
-            />
-          ),
         }}
       />
       <Stack.Screen
@@ -68,15 +44,6 @@ const VerifiedPersonStack: React.FC = () => {
         component={ResidentialAddressStep}
         options={{
           title: t('Screens.ResidentialAddressStep.Stage1'),
-          headerRight: () => (
-            <IconButton
-              buttonLocation={ButtonLocation.Right}
-              icon={'help-circle'}
-              accessibilityLabel={t('PersonCredential.HelpLink')}
-              testID={testIdWithKey('Help')}
-              onPress={() => null}
-            />
-          ),
         }}
       />
       <Stack.Screen
@@ -84,15 +51,6 @@ const VerifiedPersonStack: React.FC = () => {
         component={EmailStep}
         options={{
           title: t('Screens.EmailStep.Stage1'),
-          headerRight: () => (
-            <IconButton
-              buttonLocation={ButtonLocation.Right}
-              icon={'help-circle'}
-              accessibilityLabel={t('PersonCredential.HelpLink')}
-              testID={testIdWithKey('Help')}
-              onPress={() => null}
-            />
-          ),
         }}
       />
       <Stack.Screen
@@ -100,15 +58,6 @@ const VerifiedPersonStack: React.FC = () => {
         component={VerifyIdentityStep}
         options={{
           title: t('Screens.VerifyIdentityStep.Stage1'),
-          headerRight: () => (
-            <IconButton
-              buttonLocation={ButtonLocation.Right}
-              icon={'help-circle'}
-              accessibilityLabel={t('PersonCredential.HelpLink')}
-              testID={testIdWithKey('Help')}
-              onPress={() => null}
-            />
-          ),
         }}
       />
     </Stack.Navigator>

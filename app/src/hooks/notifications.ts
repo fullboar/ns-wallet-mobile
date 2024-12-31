@@ -1,4 +1,3 @@
-import { AnonCredsCredentialMetadataKey } from '@credo-ts/anoncreds/build/utils/metadata'
 import {
   BasicMessageRecord,
   CredentialExchangeRecord as CredentialRecord,
@@ -7,7 +6,7 @@ import {
   ProofState,
 } from '@credo-ts/core'
 import { useCredentialByState, useProofByState, useBasicMessages, useAgent } from '@credo-ts/react-hooks'
-import { BifoldAgent, useStore } from '@hyperledger/aries-bifold-core'
+import { BifoldAgent } from '@hyperledger/aries-bifold-core'
 import {
   BasicMessageMetadata,
   CredentialMetadata,
@@ -18,13 +17,10 @@ import { ProofCustomMetadata, ProofMetadata } from '@hyperledger/aries-bifold-ve
 import { useEffect, useState } from 'react'
 
 import { AttestationRestrictions } from '../constants'
-import { showPersonCredentialSelector } from '../helpers/BCIDHelper'
 import { isProofRequestingAttestation } from '../services/attestation'
-import { BCState } from '../store'
 
 export const useNotifications = (): Array<BasicMessageRecord | CredentialRecord | ProofExchangeRecord> => {
   const { agent } = useAgent()
-  const [store] = useStore<BCState>()
   const offers = useCredentialByState(CredentialState.OfferReceived)
   const proofsRequested = useProofByState(ProofState.RequestReceived)
   const [nonAttestationProofs, setNonAttestationProofs] = useState<ProofExchangeRecord[]>([])
@@ -59,17 +55,6 @@ export const useNotifications = (): Array<BasicMessageRecord | CredentialRecord 
         return cred
       }
     })
-
-    const credentials = [...credsDone, ...credsReceived]
-    const credentialDefinitionIDs = credentials.map(
-      (c) => c.metadata.data[AnonCredsCredentialMetadataKey].credentialDefinitionId as string
-    )
-    const invitationDate = new Date()
-    const custom =
-      showPersonCredentialSelector(credentialDefinitionIDs) &&
-      !store.dismissPersonCredentialOffer.personCredentialOfferDismissed
-        ? [{ type: 'CustomNotification', createdAt: invitationDate, id: 'custom' }]
-        : []
     const proofs = nonAttestationProofs.filter((proof) => {
       return (
         ![ProofState.Done, ProofState.PresentationReceived].includes(proof.state) ||
@@ -81,9 +66,9 @@ export const useNotifications = (): Array<BasicMessageRecord | CredentialRecord 
       (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     )
 
-    const notificationsWithCustom = [...custom, ...notif]
+    const notificationsWithCustom = [...notif]
     setNotifications(notificationsWithCustom as never[])
-  }, [offers, credsReceived, credsDone, basicMessages, nonAttestationProofs, store.dismissPersonCredentialOffer.personCredentialOfferDismissed])
+  }, [offers, credsReceived, credsDone, basicMessages, nonAttestationProofs])
 
   useEffect(() => {
     Promise.all(

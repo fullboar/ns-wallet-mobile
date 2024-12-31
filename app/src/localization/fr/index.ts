@@ -87,23 +87,7 @@ const translation = {
       "Stage1": "TODO",
     },
   },
-  "PersonCredentialNotification": {
-    "Title": "Obtener votre carte d'identité",
-    "Description": "Ajouter votre carte d'identité à votre portefeuille et utilisez-la pour accéder aux services en ligne."
-  },
-  "PersonCredential": {
-    "ServicesCardInstalled": "Étape 1: BC Services Card est déjà installé",
-    "InstallServicesCard": "Étape 1: Installation de l'application BC Services Card",
-    "InstallApp": "Installer l'application",
-    "AppOnOtherDevice": "Je l'ai déjà sur un autre appareil",
-    "CreatePersonCred": "Étape 2: Créez votre carte d'identité",
-    "StartProcess": "Démarrer le processus",
-    "PageTitle": "Carte d'identité",
-    "PleaseWait": "Merci de patienter pendant que nous préparons les choses pour vous",
-    "WhatIsPersonCredentialLink": "Qu'est-ce qu'un justificatif personnel",
-    "WhereToUseLink": "Où l'utiliser",
-    "HelpLink": "Aide",
-  },
+  
   "NetInfo": {
     "NoInternetConnectionTitle": "Aucune connection internet",
     "NoInternetConnectionMessage": "Vous ne pouvez pas accéder aux services en utilisant BC Wallet ou recevoir des informations d'identification jusqu'à ce que vous soyez de nouveau en ligne.\n\nVeuillez vérifier votre connexion internet.",

@@ -87,23 +87,11 @@ const translation = {
       "Stage1": "TODO",
     },
   },
-  "PersonCredentialNotification": {
-    "Title": "Get your Person credential (PT-BR)",
-    "Description": "Add your Person credential to your wallet and use it to get access to services online. (PT-BR)"
+  "Notification": {
+    "Title": "",
+    "Description": ""
   },
-  "PersonCredential": {
-    "ServicesCardInstalled": "Step 1: BC Services Card app installed (PT-BR)",
-    "InstallServicesCard": "Step 1: Install the BC Services Card app (FR",
-    "InstallApp": "Install the app (PT-BR)",
-    "AppOnOtherDevice": "I have it on another device (PT-BR)",
-    "CreatePersonCred": "Step 2: Create your Person credential (PT-BR)",
-    "StartProcess": "Start the process (PT-BR)",
-    "PageTitle": "Person Credential (PT-BR)",
-    "PleaseWait": "Please wait as we get things ready for you (PT-BR)",
-    "WhatIsPersonCredentialLink": "What is a Person credential (PT-BR)",
-    "WhereToUseLink": "Where to use (PT-BR)",
-    "HelpLink": "Help (PT-BR)",
-  },
+
   "NetInfo": {
     "NoInternetConnectionTitle": "No internet connection (PT-BR)",
     "NoInternetConnectionMessage": "You're unable to access services using BC Wallet or receive credentials until you're back online.\n\nPlease check your internet connection. (PT-BR)",

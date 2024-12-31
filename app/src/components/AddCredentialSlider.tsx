@@ -1,6 +1,3 @@
-import { AnonCredsCredentialMetadataKey } from '@credo-ts/anoncreds/build/utils/metadata'
-import { CredentialState } from '@credo-ts/core'
-import { useCredentialByState } from '@credo-ts/react-hooks'
 import { useTheme, Screens, Stacks, testIdWithKey, testIdForAccessabilityLabel } from '@hyperledger/aries-bifold-core'
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState, useCallback } from 'react'
@@ -10,7 +7,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { hitSlop } from '../constants'
 import { BCWalletEventTypes } from '../events/eventTypes'
-import { showPersonCredentialSelector } from '../helpers/BCIDHelper'
 
 export default function AddCredentialSlider() {
   const { ColorPallet, TextTheme } = useTheme()
@@ -18,10 +14,6 @@ export default function AddCredentialSlider() {
   const { t } = useTranslation()
 
   const [addCredentialPressed, setAddCredentialPressed] = useState<boolean>(false)
-  const [showGetPersonCredential, setShowGetPersonCredential] = useState<boolean>(false)
-
-  const credentialsReceived = useCredentialByState(CredentialState.CredentialReceived)
-  const credentialsDone = useCredentialByState(CredentialState.Done)
 
   const styles = StyleSheet.create({
     centeredView: {
@@ -77,21 +69,6 @@ export default function AddCredentialSlider() {
     navigation.getParent()?.navigate(Stacks.ConnectStack, { screen: Screens.Scan })
   }, [deactivateSlider, navigation])
 
-  const goToPersonCredentialScreen = useCallback(() => {
-    deactivateSlider()
-    navigation.getParent()?.navigate(Stacks.NotificationStack, {
-      screen: Screens.CustomNotification,
-    })
-  }, [deactivateSlider, navigation])
-
-  useEffect(() => {
-    const credentialDefinitionIDs = [...credentialsReceived, ...credentialsDone].map(
-      (c) => c.metadata.data[AnonCredsCredentialMetadataKey].credentialDefinitionId as string
-    )
-
-    setShowGetPersonCredential(showPersonCredentialSelector(credentialDefinitionIDs))
-  }, [credentialsReceived, credentialsDone])
-
   useEffect(() => {
     const handle = DeviceEventEmitter.addListener(BCWalletEventTypes.ADD_CREDENTIAL_PRESSED, (value?: boolean) => {
       const newVal = value === undefined ? !addCredentialPressed : value
@@ -119,17 +96,6 @@ export default function AddCredentialSlider() {
             <Icon name="window-close" size={35} style={styles.drawerRowItem}></Icon>
           </TouchableOpacity>
           <Text style={styles.drawerTitleText}>{t('AddCredentialSlider.Choose')}</Text>
-          {showGetPersonCredential && (
-            <TouchableOpacity
-              style={styles.drawerRow}
-              onPress={goToPersonCredentialScreen}
-              testID={testIdWithKey(testIdForAccessabilityLabel(t('BCID.GetDigitalID')))}
-              accessibilityLabel={t('BCID.GetDigitalID')}
-            >
-              <Icon name="credit-card" size={30} style={styles.drawerRowItem}></Icon>
-              <Text style={{ ...styles.drawerRowItem, marginLeft: 5 }}>{t('BCID.GetDigitalID')}</Text>
-            </TouchableOpacity>
-          )}
           <TouchableOpacity
             style={styles.drawerRow}
             onPress={goToScanScreen}

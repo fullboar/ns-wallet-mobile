@@ -1,4 +1,4 @@
-import { ButtonLocation, IconButton, testIdWithKey } from '@hyperledger/aries-bifold-core'
+import { testIdWithKey } from '@hyperledger/aries-bifold-core'
 import { useNavigation } from '@react-navigation/native'
 import { HeaderBackButton, HeaderBackButtonProps } from '@react-navigation/elements'
 import { useCallback, useMemo, useState } from 'react'
@@ -35,15 +35,6 @@ const EvidenceCollectionStepScreen: React.FC = () => {
             onPress={() => navigation.goBack()}
           />
         ),
-        headerRight: () => (
-          <IconButton
-            buttonLocation={ButtonLocation.Right}
-            icon={'help-circle'}
-            accessibilityLabel={t('PersonCredential.HelpLink')}
-            testID={testIdWithKey('Help')}
-            onPress={() => null}
-          />
-        ),
       },
       2: {
         title: t('Screens.EvidenceCollectionStep.Stage2'),
@@ -56,15 +47,6 @@ const EvidenceCollectionStepScreen: React.FC = () => {
               navigation.setOptions(StageNavOptionsMap[1])
               setStage(1)
             }}
-          />
-        ),
-        headerRight: () => (
-          <IconButton
-            buttonLocation={ButtonLocation.Right}
-            icon={'help-circle'}
-            accessibilityLabel={t('PersonCredential.HelpLink')}
-            testID={testIdWithKey('Help')}
-            onPress={() => null}
           />
         ),
       },
@@ -81,15 +63,6 @@ const EvidenceCollectionStepScreen: React.FC = () => {
             }}
           />
         ),
-        headerRight: () => (
-          <IconButton
-            buttonLocation={ButtonLocation.Right}
-            icon={'help-circle'}
-            accessibilityLabel={t('PersonCredential.HelpLink')}
-            testID={testIdWithKey('Help')}
-            onPress={() => null}
-          />
-        ),
       },
       4: {
         title: t('Screens.EvidenceCollectionStep.Stage4'),
@@ -104,15 +77,6 @@ const EvidenceCollectionStepScreen: React.FC = () => {
             }}
           />
         ),
-        headerRight: () => (
-          <IconButton
-            buttonLocation={ButtonLocation.Right}
-            icon={'help-circle'}
-            accessibilityLabel={t('PersonCredential.HelpLink')}
-            testID={testIdWithKey('Help')}
-            onPress={() => null}
-          />
-        ),
       },
       5: {
         title: t('Screens.EvidenceCollectionStep.Stage5'),
@@ -125,15 +89,6 @@ const EvidenceCollectionStepScreen: React.FC = () => {
               navigation.setOptions(StageNavOptionsMap[4])
               setStage(4)
             }}
-          />
-        ),
-        headerRight: () => (
-          <IconButton
-            buttonLocation={ButtonLocation.Right}
-            icon={'help-circle'}
-            accessibilityLabel={t('PersonCredential.HelpLink')}
-            testID={testIdWithKey('Help')}
-            onPress={() => null}
           />
         ),
       },

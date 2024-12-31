@@ -170,16 +170,6 @@ storiesOf('Brandings', module)
     }
     const list: ListItem[] = [
       {
-        credentialDefinitionId: CREDENTIALS.BC_DIGITAL_ID_PROD,
-        credentialRecordId: 'PersonCredential_default',
-        revoked: false,
-      },
-      {
-        credentialDefinitionId: CREDENTIALS.BC_DIGITAL_ID_PROD,
-        credentialRecordId: 'PersonCredential_Revoked',
-        revoked: true,
-      },
-      {
         credentialDefinitionId: CREDENTIALS.SHOWCASE_STUDENT_PROD,
         credentialRecordId: 'StudentCredential_default',
         revoked: false,
@@ -256,7 +246,7 @@ storiesOf('Brandings', module)
     const list: ListItem[] = [
       {
         credentialDefinitionId: CREDENTIALS.BC_DIGITAL_ID_PROD,
-        credentialRecordId: 'PersonCredential_default',
+        credentialRecordId: '',
         revoked: false,
       },
     ]
@@ -281,7 +271,7 @@ storiesOf('Brandings', module)
     const list: ListItem[] = [
       {
         credentialDefinitionId: CREDENTIALS.BC_DIGITAL_ID_PROD,
-        credentialRecordId: 'PersonCredential_Revoked',
+        credentialRecordId: '',
         revoked: true,
       },
     ]

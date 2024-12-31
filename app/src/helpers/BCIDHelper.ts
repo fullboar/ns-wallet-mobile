@@ -6,8 +6,6 @@ import { InAppBrowser, RedirectResult } from 'react-native-inappbrowser-reborn'
 
 const legacyDidKey = '_internal/legacyDid' // TODO:(jl) Waiting for AFJ export of this.
 const redirectUrlTemplate = 'bcwallet://bcsc/v1/dids/<did>'
-const trustedPersonCredentialIssuerRe =
-  /^(KCxVC8GkKywjhWJnUfCmkW|7xjfawcnyTUcduWVysLww5|RGjWbW1eycP7FrMf4QJvX8):\d:CL:\d+:Person(\s(\(SIT\)|\(QA\)))?$/im
 
 enum AuthenticationResultType {
   Success = 'success',
@@ -30,11 +28,6 @@ export interface WellKnownAgentDetails {
   connectionId?: string
   legacyConnectionDid?: string
   invitationId?: string
-}
-
-export const showPersonCredentialSelector = (credentialDefinitionIDs: string[]): boolean => {
-  // If we already have a trusted person credential do not show
-  return !credentialDefinitionIDs.some((i) => trustedPersonCredentialIssuerRe.test(i))
 }
 
 export const removeExistingInvitationIfRequired = async (

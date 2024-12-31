@@ -53,22 +53,11 @@ import { useNotifications } from './src/hooks/notifications'
 import VerifiedPersonStack from './src/modules/unified/navigators/VerifiedPersonStack'
 import Developer from './src/screens/Developer'
 import { pages } from './src/screens/OnboardingPages'
-import PersonCredential from './src/screens/PersonCredential'
-import PersonCredentialLoading from './src/screens/PersonCredentialLoading'
 import Preface from './src/screens/Preface'
 import Splash from './src/screens/Splash'
 import Terms, { TermsVersion } from './src/screens/Terms'
 import { AttestationMonitor, allCredDefIds } from './src/services/attestation'
-import {
-  BCDispatchAction,
-  BCLocalStorageKeys,
-  BCState,
-  DismissPersonCredentialOffer,
-  IASEnvironment,
-  RemoteDebuggingState,
-  Unified,
-  initialState,
-} from './src/store'
+import { BCLocalStorageKeys, BCState, IASEnvironment, RemoteDebuggingState, Unified, initialState } from './src/store'
 
 const attestationCredDefIds = allCredDefIds(AttestationRestrictions)
 const helpLink = 'https://www2.gov.bc.ca/gov/content/governments/government-id/bc-wallet/help'
@@ -312,29 +301,7 @@ export class AppContainer implements Container {
 
     this._container.registerInstance(TOKENS.NOTIFICATIONS, {
       useNotifications,
-      customNotificationConfig: {
-        component: PersonCredential,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        onCloseAction: (dispatch?: React.Dispatch<ReducerAction<any>>) => {
-          if (dispatch) {
-            dispatch({
-              type: BCDispatchAction.PERSON_CREDENTIAL_OFFER_DISMISSED,
-              payload: [{ personCredentialOfferDismissed: true }],
-            })
-          }
-        },
-        additionalStackItems: [
-          {
-            component: PersonCredentialLoading,
-            name: 'PersonCredentialLoading',
-            stackOptions: { headerShown: false },
-          },
-        ],
-        pageTitle: 'PersonCredential.PageTitle',
-        title: 'PersonCredentialNotification.Title',
-        description: 'PersonCredentialNotification.Description',
-        buttonTitle: 'PersonCredentialNotification.ButtonTitle',
-      },
+      customNotificationConfig: {},
     })
 
     this._container.registerInstance(TOKENS.UTIL_PROOF_TEMPLATE, getProofRequestTemplates)
@@ -352,7 +319,7 @@ export class AppContainer implements Container {
       let migration = initialState.migration
       let tours = initialState.tours
       let onboarding = initialState.onboarding
-      let personCredOfferDissmissed = initialState.dismissPersonCredentialOffer
+
       let { environment, remoteDebugging, enableProxy, enableAltPersonFlow } = initialState.developer
       let unified = initialState.unified
 
@@ -366,10 +333,7 @@ export class AppContainer implements Container {
         loadState<MigrationState>(LocalStorageKeys.Migration, (val) => (migration = val)),
         loadState<ToursState>(LocalStorageKeys.Tours, (val) => (tours = val)),
         loadState<OnboardingState>(LocalStorageKeys.Onboarding, (val) => (onboarding = val)),
-        loadState<DismissPersonCredentialOffer>(
-          BCLocalStorageKeys.PersonCredentialOfferDismissed,
-          (val) => (personCredOfferDissmissed = val)
-        ),
+
         loadState<IASEnvironment>(BCLocalStorageKeys.Environment, (val) => (environment = val)),
         loadState<RemoteDebuggingState>(BCLocalStorageKeys.RemoteDebugging, (val) => (remoteDebugging = val)),
         loadState<boolean>(BCLocalStorageKeys.EnableProxy, (val) => (enableProxy = val)),
@@ -388,7 +352,6 @@ export class AppContainer implements Container {
         migration: { ...initialState.migration, ...migration },
         tours: { ...initialState.tours, ...tours },
         onboarding: { ...initialState.onboarding, ...onboarding },
-        dismissPersonCredentialOffer: { ...initialState.dismissPersonCredentialOffer, ...personCredOfferDissmissed },
         developer: {
           ...initialState.developer,
           environment,

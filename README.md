@@ -24,3 +24,4 @@ How BC Wallet Mobile App fits in a larger picture?
 ![](<./docs/BCWallet_Architecture.png>)
 
 
+ 
